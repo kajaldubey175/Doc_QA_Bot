@@ -3,10 +3,7 @@ from PyPDF2 import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
-from langchain.chains.question_answering import load_qa_chain
-
 import os
-
 st.set_page_config(page_title="Document Q&A System", page_icon="📚")
 st.header("📄 AI Document Q&A System")
 
@@ -36,10 +33,14 @@ if uploaded_file and api_key:
     
     if user_question:
         docs = vector_store.similarity_search(user_question)
-        llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3)
-        chain = load_qa_chain(llm, chain_type="stuff")
+        context = "\n\n".join([doc.page_content for doc in docs])
         
-        response = chain.run(input_documents=docs, question=user_question)
+        llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=api_key)
+        response = llm.invoke(f"Context:\n{context}\n\nQuestion: {user_question}\nAnswer:")
+        
+        st.write("### 🤖 Answer:")
+        st.write(response.content)
+        
         st.write("### 🤖 Answer:")
         st.write(response)
 elif not api_key:
