@@ -1,0 +1,11 @@
+# Python environment & cache
+venv/
+*.pyc
+__pycache__/
+
+# Environment variables (API Key hidden)
+.env
+
+# System & OS files
+.DS_Store
+Thumbs.db
