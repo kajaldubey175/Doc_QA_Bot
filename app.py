@@ -45,4 +45,4 @@ if uploaded_file and api_key:
         st.write(response.content)
 
 elif not api_key:
-    st.info("Please enter your Gemini API key in the sidebar to proceed.")
+    st.info("Please enter your API key in the sidebar to start asking questions.")
