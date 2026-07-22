@@ -46,11 +46,17 @@ pip install -r requirements.txt
 OPENAI_API_KEY=your_openai_api_key_here
 ### 5. Run the Application
 streamlit run app.py
-### 📸 Demo Workflow
+
+---
+
+## 📸 Demo Workflow
 1. Upload Document: Upload your PDF file through the sidebar uploader.
 2. Processing: The application extracts text, creates chunks, and generates vector embeddings.
 3. Ask Questions: Type any query related to your uploaded document in the input box.
 4. Get Answers: Receive instant, accurate responses sourced directly from the document context.
+   
+---
+
 ## 🌐 Live Application
 You can access and test the live application here:  
 👉 **[Click Here to Open App](https://docappbot-vzgh8dzthvuswzkatbuusy.streamlit.app/)**
