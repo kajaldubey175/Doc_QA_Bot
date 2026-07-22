@@ -4,6 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 import os
+
 st.set_page_config(page_title="Document Q&A System", page_icon="📚")
 st.header("📄 AI Document Q&A System")
 
@@ -18,7 +19,9 @@ if uploaded_file and api_key:
     pdf_reader = PdfReader(uploaded_file)
     text = ""
     for page in pdf_reader.pages:
-        text += page.extract_text()
+        extracted = page.extract_text()
+        if extracted:
+            text += extracted
         
     # 2. Split Text into Chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -40,8 +43,6 @@ if uploaded_file and api_key:
         
         st.write("### 🤖 Answer:")
         st.write(response.content)
-        
-        st.write("### 🤖 Answer:")
-        st.write(response)
+
 elif not api_key:
     st.info("Please enter your Gemini API key in the sidebar to proceed.")
